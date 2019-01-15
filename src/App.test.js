@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import localStorage from './localStorage'
 
-window.localStorage = localStorage
+
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
