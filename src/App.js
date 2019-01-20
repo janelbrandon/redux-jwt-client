@@ -7,6 +7,7 @@ import SignIn from './components/SignIn'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import store from './config/store'
 import { setBookmarksAction, setLoginErrorAction, setLoggedInAction } from './config/actions'
+import { fetchBookmarks, removeBookmark } from './services/BookmarkService'
 
 class App extends Component {
 
@@ -29,7 +30,7 @@ class App extends Component {
       this.token = response.data.token
       setJwt(response.data.token)
       store.dispatch(setLoggedInAction(true))
-      this.fetchBookmarks()
+      fetchBookmarks()
     } catch (error) {
       store.dispatch(setLoginErrorAction(error.message))
     }
@@ -43,16 +44,6 @@ class App extends Component {
     })
   }
 
-  remove = (id) => {
-    api.delete(`/bookmarks/${id}`)
-    const index = store.getState().bookmarks.findIndex(bookmark => bookmark._id === id)
-    if (index >= 0) {
-      const newBookmarks = [...store.getState().bookmarks]
-      newBookmarks.splice(index, 1)
-      store.dispatch(setBookmarksAction(newBookmarks))
-    }
-
-  }
 
   render() {
     const tokenDetails = this.token && decodeJWT(this.token)
@@ -83,7 +74,7 @@ class App extends Component {
                     <ul>
                       {
                         bookmarks.map(
-                          bookmark => <Bookmark key={bookmark._id} {...bookmark} remove={this.remove} />
+                          bookmark => <Bookmark key={bookmark._id} {...bookmark} remove={removeBookmark} />
                         )
                       }
                     </ul>
@@ -102,19 +93,11 @@ class App extends Component {
   componentDidMount() {
     if (this.token) {
       setJwt(this.token)
-      this.fetchBookmarks()
+      fetchBookmarks()
     }
   }
 
-  async fetchBookmarks() {
-    try {
-      const bookmarks = await api.get('/bookmarks')
-      store.dispatch(setBookmarksAction(bookmarks.data))
-    }
-    catch (error) {
-      alert('Can\'t get bookmarks!')
-    }
-  }
+
 }
 
 
