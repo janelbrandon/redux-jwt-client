@@ -26,7 +26,6 @@ describe('Bookmark component', () => {
         const wrapper = shallow(
             <Bookmark _id={_id} title="My fake bookmark" url="http://www.myfakebookmark" remove={removeSpy} />
         )
-        console.log(wrapper.debug())
         let btn = wrapper.find('button')
         expect(btn).toHaveLength(1)
         expect(btn.text()).toEqual('Delete!')

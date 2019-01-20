@@ -23,7 +23,22 @@ const removeBookmark = (id) => {
     }).catch((err) => {
         console.error('Error removing bookmark on server: Error: ', err)
     })
-
 }
 
-export { fetchBookmarks, removeBookmark } 
+const createBookmark = (event) => {
+    event.preventDefault()
+    const form = event.target
+    const newBookmark = {
+        title: form.elements.title.value,
+        url: form.elements.url.value
+    }
+
+    api.post('/bookmarks', newBookmark).then((res) => {
+        const newBookmarks = [...store.getState().bookmarks, res.data]
+        store.dispatch(setBookmarksAction(newBookmarks))
+    }).catch((err) => {
+        console.error('Error adding bookmark on server: ', err)
+    })
+}
+
+export { fetchBookmarks, createBookmark, removeBookmark } 

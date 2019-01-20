@@ -7,7 +7,8 @@ import SignIn from './components/SignIn'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import store from './config/store'
 import { setBookmarksAction, setLoginErrorAction, setLoggedInAction } from './config/actions'
-import { fetchBookmarks, removeBookmark } from './services/BookmarkService'
+import { fetchBookmarks, createBookmark, removeBookmark } from './services/BookmarkService'
+import NewBookmark from './components/NewBookmark'
 
 class App extends Component {
 
@@ -71,6 +72,7 @@ class App extends Component {
                     <p>Your token expires at: {new Date(tokenDetails.exp * 1000).toLocaleString()}</p>
                     <button onClick={this.handleSignOut}>Logout</button>
                     <h1>Bookmarks</h1>
+                    <NewBookmark createBookmark={createBookmark} />
                     <ul>
                       {
                         bookmarks.map(
