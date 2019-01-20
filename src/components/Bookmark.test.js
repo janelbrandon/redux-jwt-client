@@ -2,6 +2,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import Bookmark from './Bookmark'
 import { shallow } from 'enzyme'
+import { Button } from '../styles/componentSyles'
 
 jest.mock('../services/BookmarkService')
 let { removeBookmark } = require('../services/BookmarkService')
@@ -26,7 +27,8 @@ describe('Bookmark component', () => {
         const wrapper = shallow(
             <Bookmark _id={_id} title="My fake bookmark" url="http://www.myfakebookmark" remove={removeSpy} />
         )
-        let btn = wrapper.find('button')
+
+        let btn = wrapper.find(Button)
         expect(btn).toHaveLength(1)
         expect(btn.text()).toEqual('Delete!')
         btn.prop('onClick')()
@@ -38,7 +40,7 @@ describe('Bookmark component', () => {
             <Bookmark _id={_id} title="My fake bookmark" url="http://www.myfakebookmark" remove={removeBookmark} />
         )
 
-        let btn = wrapper.find('button')
+        let btn = wrapper.find(Button)
         expect(btn).toHaveLength(1)
         expect(btn.text()).toEqual('Delete!')
         btn.prop('onClick')()

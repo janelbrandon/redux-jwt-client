@@ -11,6 +11,7 @@ exports[`Bookmark snapshot Should render as expected 1`] = `
   </a>
   )
   <button
+    className="sc-bdVaJa xKgSf"
     onClick={[Function]}
   >
     Delete!

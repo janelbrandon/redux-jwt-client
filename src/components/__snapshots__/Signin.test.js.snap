@@ -21,6 +21,7 @@ exports[`Should render as expected without login error 1`] = `
   </label>
   <br />
   <button
+    className="sc-bdVaJa lmpxVR"
     type="submit"
   >
     Login

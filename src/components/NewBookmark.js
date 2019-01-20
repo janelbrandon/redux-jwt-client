@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Button, Label, ListContainer } from '../styles/componentSyles'
 
 const NewBookmark = ({ createBookmark }) => (
-    <form onSubmit={createBookmark}>
-        <label>Title: <input type="text" name="title" /></label><br />
-        <label>Url: <input type="text" name="url" /></label><br />
-        <button type="submit">Submit</button>
-    </form>
+    <ListContainer>
+        <form onSubmit={createBookmark}>
+            <Label>Title: <input type="text" name="title" /></Label>
+            <label>Url: <input type="text" name="url" /></label>
+            <Button highlight="silver" type="submit">Submit</Button>
+        </form>
+    </ListContainer>
 )
 
 NewBookmark.propTypes = {
